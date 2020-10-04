@@ -10,88 +10,88 @@ using System.Windows.Forms;
 
 namespace TravelExperts
 {
-    public partial class AddEditProduct : Form
+    public partial class AddEditPackages : Form
     {
         private readonly TravelExpertsEntities _db; //This was added to connect db after creating TravelExpertsDB ADO.NET Entity Data Model
-        private ManageProductListing _manageProductListing;
+        private ManagePackageListing _managePackageListing;
         private bool isEditMode;
-     
-        public AddEditProduct(ManageProductListing manageProductListing = null)
-        {
-            InitializeComponent();            
-            lblTitle.Text = "Add New Product";
-            this.Text = "Add New Product";            
-            isEditMode = false;
-            _manageProductListing = manageProductListing;
-            _db = new TravelExpertsEntities();
-        }
-        public AddEditProduct(Product productToEdit, ManageProductListing manageProductListing = null)
+
+        public AddEditPackage(ManagePackageListing managePackageListing = null)
         {
             InitializeComponent();
-            lblTitle.Text = "Edit Products";
-            this.Text = "Edit Products";
-            _manageProductListing = manageProductListing;
+            lblTitle.Text = "Add New Package";
+            this.Text = "Add New Package";
+            isEditMode = false;
+            _managePackageListing = managePackageListing;
+            _db = new TravelExpertsEntities();
+        }
+        public AddEditPackage(Product packageToEdit, ManagePackageListing managePackageListing = null)
+        {
+            InitializeComponent();
+            lblTitle.Text = "Edit Packages";
+            this.Text = "Edit Packages";
+            _managePackageListing = managePackageListing;
 
-            if (productToEdit == null)
+            if (packageToEdit == null)
             {
-                MessageBox.Show("Please ensure you selected a valid Product to edit");
+                MessageBox.Show("Please ensure you selected a valid Package to edit");
                 Close();
             }
             else
             {
                 isEditMode = true;
                 _db = new TravelExpertsEntities();
-                PopulateFields(productToEdit);
+                PopulateFields(packageToEdit);
             }
 
         }
 
         private void PopulateFields(Product productToEdit)
         {
-            lblProductId.Text = productToEdit.ProductId.ToString();
-            txtProduct.Text = productToEdit.ProdName;
+            lblPackageId.Text = packageToEdit.PackageId.ToString();
+            txtPackage.Text = packageToEdit.PkgName;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
             try
             {
-                string product = txtProduct.Text;
+                string package = txtPackage.Text;
 
                 var isValid = true;
                 var errorMessage = "";
 
-                if (string.IsNullOrWhiteSpace(product))
+                if (string.IsNullOrWhiteSpace(package))
                 {
                     isValid = false;
-                    errorMessage += "Error: Please Enter a Product Name";
+                    errorMessage += "Error: Please Enter a Package Name";
                 }
 
                 if (isValid)
                 {
                     //Declare an object of the product to be added
-                    var productlisting = new Product();
+                    var packagelisting = new Package();
 
                     if (isEditMode)
                     {
                         //If in edit mode, then get the ID and retrieve the record from the database and place
                         //the result in the record object
-                        var id = int.Parse(lblProductId.Text);
-                        productlisting = _db.Products.FirstOrDefault(p => p.ProductId == id);
+                        var id = int.Parse(lblPackageId.Text);
+                        packagelisting = _db.Packages.FirstOrDefault(p => p.PackageId == id);
 
                     }
                     //Populate record object with values from the form 
-                    productlisting.ProdName = product;
+                    packagelisting.PkgName = package;
 
                     //If not in edit mode, then add the record object to the database
                     if (!isEditMode)
-                        _db.Products.Add(productlisting);
+                        _db.Packages.Add(packagelisting);
 
                     //Save Changes made to the entity
                     _db.SaveChanges();
-                    _manageProductListing.PopulateGrid();
+                    _managePackageListing.PopulateGrid();
 
-                    MessageBox.Show($"Product Name :{product} has been added");
+                    MessageBox.Show($"Package Name :{package} has been added");
 
                     Close();
                 }
@@ -111,6 +111,5 @@ namespace TravelExperts
         {
             Close();
         }
-
     }
 }
