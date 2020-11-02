@@ -1,32 +1,32 @@
 # TravelExperts
 Travel Experts WinForms Workshop
 
-Here we go Team! Our Workshop 4 project and Tasks. We will check them off once we know we have completed them. 
+Our Workshop 4 project and Tasks. We will check them off once we know we have completed them. 
 Please put your name beside the stuff you do, on this file and in the code. 
 Thanks!
 
-Crystal -Travel Experts Admin Page (if there is time, we can add a users/login page)
+Travel Experts Admin Page (if there is time, we can add a users/login page)
 
-??Manage Packages 
+Manage Packages 
 -	Edit 
 -	Add 
 - Delete
 -	(Package ID/Package Name/ Info/ Commission/etc)
 -	(Package Id/ ProductSupplierID)
 
-Crystal Manage Products DONE!!!!  
+Manage Products  
 - Add products (Product ID/ProdName)
 - Edit products
 - Delete
 
-??Manage Supplier  
+Manage Supplier  
 -	Add supplier 
 -	Edit supplier
 - Delete
 -	(SupplierContactID/Name/Company/Address/etc)
 -	(SupplierID/SupplierName)
 
-??Validations
+Validations
 -	Agency Commission cannot be greater than the Base Price
 -	Package End Date must be later than the Package Start Date
 -	Package Name and package Description cannot be null
